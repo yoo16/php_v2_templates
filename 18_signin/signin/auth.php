@@ -1,6 +1,6 @@
 <?php
 // 共通ファイル app.php を読み込み
-require_once '../../app.php';
+require_once '../app.php';
 
 use App\Models\AuthUser;
 use App\Models\User;
@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // TODO: セッションにPOSTデータを登録
 $_SESSION[APP_KEY]['signin'] = null;
 
-// 入力されたアカウント名とパスワードを取得
-$account_name = $_POST['account_name'];
-$password = $_POST['password'];
+// TODO: 入力されたアカウント名とパスワードを取得
+$account_name = "";
+$password = "";
 
 // ユーザ認証: new User() で auth() を実行
 $user = new User();
@@ -26,13 +26,12 @@ if (empty($auth_user['id'])) {
     // エラーセッション
     $_SESSION[APP_KEY]['error'] = 'アカウント名またはパスワードが間違っています。';
     // ログイン失敗時はログイン入力画面にリダイレクト
-    header('Location: ../input/');
+    header('Location: ./input.php');
     exit;
 } else {
-    // 認証成功時はセッションにユーザデータを保存
-    AuthUser::set($auth_user);
+    // TODO: 認証成功時はセッションにユーザデータを保存: APP_KEY の signin
 
     // ユーザトップページにリダイレクト: home/
-    header('Location: ../../home/');
+    header('Location: ../home/');
     exit;
 }

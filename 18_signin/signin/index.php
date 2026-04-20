@@ -5,4 +5,4 @@ if (isset($_SESSION[APP_KEY]['signin'])) {
     unset($_SESSION[APP_KEY]['signin']);
 }
 // リダイレクト
-header('Location: input/');
+header('Location: input.php');

@@ -41,13 +41,13 @@ $auth_user = AuthUser::check();
                     <tbody class="text-gray-600 divide-y divide-gray-50">
                         <?php
                         $pages = [
-                            ['トップページ',       '/',                   'index.php',                  'GET',  'auth_user セッション確認'],
-                            ['About',             'about/',              'about/index.php',            'GET',  ''],
-                            ['ログイン（リセット）', 'signin/',             'signin/index.php',           'GET',  'signin セッション削除 → input にリダイレクト'],
-                            ['ログイン入力',       'signin/input/',       'signin/input/index.php',     'GET',  'フラッシュ入力値・エラー取得'],
-                            ['ログイン認証',       'signin/auth/',        'signin/auth/index.php',      'POST', 'email + password で認証、セッション登録'],
-                            ['ログアウト',         'signout/',            'signout/index.php',          'GET',  'auth_user セッション削除'],
-                            ['マイページ',         'home/',               'home/index.php',             'GET',  'auth_user セッション検証、未認証はリダイレクト'],
+                            ['トップページ',       '/',                  'index.php',           'GET',  'auth_user セッション確認'],
+                            ['About',             '/about/',            'about/index.php',     'GET',  ''],
+                            ['ログイン（リセット）', '/signin/',           'signin/index.php',    'GET',  'signin セッション削除 → input.php にリダイレクト'],
+                            ['ログイン入力',       '/signin/input.php',  'signin/input.php',    'GET',  'フラッシュ入力値・エラー取得'],
+                            ['ログイン認証',       '/signin/auth.php',   'signin/auth.php',     'POST', 'account_name + password で認証、セッション登録'],
+                            ['ログアウト',         '/signout/',          'signout/index.php',   'GET',  'auth_user セッション削除'],
+                            ['マイページ',         '/home/',             'home/index.php',      'GET',  'auth_user セッション検証、未認証はリダイレクト'],
                         ];
                         foreach ($pages as [$label, $endpoint, $file, $method, $note]):
                             $badge = $method === 'GET'
@@ -156,28 +156,6 @@ $auth_user = AuthUser::check();
                         ['created_at',    'datetime',     'NOT NULL / DEFAULT NOW()',   '作成日時'],
                         ['updated_at',    'datetime',     'NOT NULL / ON UPDATE NOW()', '更新日時'],
                     ],
-                ],
-                [
-                    'name'    => 'tweets',
-                    'columns' => [
-                        ['id',         'bigint',    'PK / AUTO_INCREMENT',       'ツイート ID'],
-                        ['message',    'text',      'NOT NULL',                   '投稿テキスト'],
-                        ['user_id',    'bigint',    'NOT NULL / FK → users.id',  '投稿者 ID'],
-                        ['image_path', 'text',      'DEFAULT NULL',               '添付画像パス'],
-                        ['created_at', 'timestamp', 'NOT NULL / DEFAULT NOW()',   '作成日時'],
-                        ['updated_at', 'timestamp', 'NOT NULL / ON UPDATE NOW()', '更新日時'],
-                    ],
-                ],
-                [
-                    'name'    => 'likes',
-                    'columns' => [
-                        ['id',         'bigint',    'PK / AUTO_INCREMENT',                  'いいね ID'],
-                        ['user_id',    'bigint',    'NOT NULL / FK → users.id',             'いいねしたユーザ ID'],
-                        ['tweet_id',   'bigint',    'NOT NULL / FK → tweets.id',            '対象ツイート ID'],
-                        ['created_at', 'timestamp', 'NOT NULL / DEFAULT NOW()',              '作成日時'],
-                        ['updated_at', 'timestamp', 'NOT NULL / ON UPDATE NOW()',            '更新日時'],
-                    ],
-                    'unique' => 'UNIQUE (user_id, tweet_id)',
                 ],
             ];
             foreach ($tables as $table):
