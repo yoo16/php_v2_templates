@@ -19,7 +19,7 @@
 
 - [ ] `$_POST` を `sanitize()` して `$posts` に代入
 - [ ] `$_SESSION[APP_KEY]['regist']` に `$posts` を保存
-- [ ] `$auth_user` が取得できた場合、`$_SESSION[APP_KEY]['auth_user']` に保存
+- [ ] `User` モデルの `insert()` を使ってユーザ登録
 - [ ] 登録失敗で、`input.php` にリダイレクト
 - [ ] 登録成功後、`result.php` にリダイレクト
 

@@ -41,10 +41,8 @@ if (empty($user_id)) {
     exit;
 } else {
     // ユーザ登録に成功したとき
-    // セッションにログインユーザ  $auth_user を入れる
-    $_SESSION[APP_KEY]['auth_user'] = null;
 
-    // 結果ページにリダイレクト: ../result/
+    // 結果ページにリダイレクト: result.php
     header('Location: result.php');
     exit;
 }

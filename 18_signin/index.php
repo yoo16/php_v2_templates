@@ -4,7 +4,7 @@ require_once 'app.php';
 
 use App\Models\AuthUser;
 
-$auth_user = AuthUser::check();
+$auth_user = $_SESSION[APP_KEY]['auth_user'] ?? null;
 ?>
 
 <!DOCTYPE html>
