@@ -1,6 +1,6 @@
 <?php
 // 共通アプリファイル読み込み
-require_once "../../app.php";
+require_once "../app.php";
 
 // セッション APP_KEY の regist があれば削除
 if (isset($_SESSION[APP_KEY]['regist'])) {
@@ -20,6 +20,8 @@ if (isset($_SESSION[APP_KEY]['errors'])) {
 <?php include COMPONENT_DIR . 'head.php'; ?>
 
 <body class="bg-sky-50 min-h-screen">
+    <?php include COMPONENT_DIR . 'nav.php'; ?>
+
     <main class="flex flex-col justify-center items-center min-h-screen px-4 py-12">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
 

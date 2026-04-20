@@ -1,6 +1,6 @@
 <?php
 // 共通アプリファイル読み込み
-require_once "../../app.php";
+require_once "../app.php";
 
 $regist = [];
 if (isset($_SESSION[APP_KEY]['regist'])) {
@@ -12,25 +12,27 @@ $errors = [];
 if (isset($_SESSION[APP_KEY]['errors'])) {
     // TODO: セッション APP_KEY の errors があれば取得
     $errors = "";
-    // エラーメッセージはフラッシュメッセージ
-    unset($_SESSION[APP_KEY]['errors']);
+    // TODO: エラーメッセージはフラッシュメッセージ
+    // unset($_SESSION[APP_KEY]['errors']);
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
 
-<!-- TODO: components/head.php を読み込み -->
-<?php include COMPONENT_DIR . 'head.php'; ?>
+<!-- components/head.php を読み込み -->
+<?php include COMPONENT_DIR . "head.php" ?>
 
 <body class="bg-sky-50 min-h-screen">
+    <?php include COMPONENT_DIR . 'nav.php'; ?>
+
     <main class="flex flex-col justify-center items-center min-h-screen px-4 py-12">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
 
             <!-- ロゴ・タイトル -->
             <div class="text-center mb-8">
                 <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-sky-100 mb-4">
-                    <svg class="w-7 h-7 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg width="48" class="w-7 h-7 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
@@ -47,7 +49,7 @@ if (isset($_SESSION[APP_KEY]['errors'])) {
 
             <!-- Form -->
             <!-- regist/add/ に POSTリクエスト -->
-            <form action="regist/add/" method="post" class="space-y-4">
+            <form action="regist/add.php" method="post" class="space-y-4">
 
                 <!-- アカウント名 -->
                 <div class="relative">
@@ -147,14 +149,13 @@ if (isset($_SESSION[APP_KEY]['errors'])) {
                 </button>
             </form>
 
-            <!-- フッターリンク -->
+            <!-- Test -->
             <div class="mt-6 space-y-2 text-center">
                 <button onclick="inputTestRegistUser()"
                     class="text-sm text-sky-400 hover:text-sky-600 hover:underline transition">
                     Test Input
                 </button>
             </div>
-
         </div>
     </main>
 </body>

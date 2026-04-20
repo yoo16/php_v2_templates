@@ -5,8 +5,8 @@ require_once 'env.php';
 session_start();
 
 // CSRFトークンの生成
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+if (empty($_SESSION[APP_KEY]['csrf_token'])) {
+    $_SESSION[APP_KEY]['csrf_token'] = bin2hex(random_bytes(32));
 }
 
 $message = "";
@@ -18,7 +18,7 @@ $insert_sql = file_exists("docs/insert_data.sql") ? file_get_contents("docs/inse
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // CSRFトークンの検証
-    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION[APP_KEY]['csrf_token']) {
         die('不正なリクエストです。');
     }
 
@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <form action="" method="post" class="p-6 space-y-6">
-                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION[APP_KEY]['csrf_token'] ?>">
 
                         <div class="space-y-4">
                             <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">実行プロセス</h4>

@@ -28,8 +28,6 @@ class User extends Model
      */
     public function find(int $id)
     {
-        // IDがなければ終了
-        if (!$id) return;
         try {
             $pdo = self::pdo();
             $sql = "SELECT * FROM users WHERE id = :id";
@@ -51,8 +49,6 @@ class User extends Model
      */
     public function findForExists($posts)
     {
-        // データがなければ終了
-        if (empty($posts)) return;
         try {
             $account_name = $posts['account_name'];
             $email = $posts['email'];
@@ -77,8 +73,6 @@ class User extends Model
      */
     public function insert($data)
     {
-        // データがなければ終了
-        if (empty($data)) return;
         try {
             // パスワードのハッシュ化
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);

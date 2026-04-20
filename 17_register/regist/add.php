@@ -1,6 +1,6 @@
 <?php
 // 共通ファイル app.php を読み込み
-require_once '../../app.php';
+require_once '../app.php';
 
 // Userモデルをインポート
 use App\Models\User;
@@ -9,39 +9,42 @@ use App\Models\User;
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
+
 // POSTデータ取得
-$posts = [];
+$posts = $_POST;
 // TODO: サニタイズ
 // $posts = sanitize($_POST);
 
 // TODO: セッションの APP_KEY 下の regist にPOSTデータを保存
 $_SESSION[APP_KEY]['regist'] = null;
 
-$user = new User();
-
 // ユーザが存在するかチェック
+$user = new User();
 $user_exists = $user->findForExists($posts);
 if (!empty($user_exists['id'])) {
     // ユーザが既に存在する場合はエラーメッセージをセッションに保存
     $_SESSION[APP_KEY]['errors']['public'] = 'このアカウント名は既に使用されています。';
-    header('Location: ../input/');
+    header('Location: input.php');
     exit;
 }
 
-// ユーザ登録
-$user_id = (int) $user->insert($posts);
-// ユーザ検索
-$auth_user = $user->find($user_id);
+// User クラスのインスタンスを生成
+$user = new User();
+// TODO: User モデルの insert() を使ってユーザを登録
+$user_id = 0;
 
-if (empty($auth_user['id'])) {
-    // ログイン失敗時はログイン入力画面にリダイレクト
-    header('Location: ../input/');
+if (empty($user_id)) {
+    // エラーメッセージをセッションに保存
+    $_SESSION[APP_KEY]['errors']['public'] = 'ユーザ登録に失敗しました。';
+    // ユーザ登録に失敗したとき、ログイン入力画面にリダイレクト
+    header('Location: input.php');
     exit;
 } else {
-    // TODO: 認証成功時はセッション auth_user にユーザデータを保存
+    // ユーザ登録に成功したとき
+    // セッションにログインユーザ  $auth_user を入れる
     $_SESSION[APP_KEY]['auth_user'] = null;
 
-    // TODO: 結果ページにリダイレクト: ../result/
-    // header('Location: ../result/');
+    // 結果ページにリダイレクト: ../result/
+    header('Location: result.php');
     exit;
 }

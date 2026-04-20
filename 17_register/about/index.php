@@ -42,12 +42,12 @@ $auth_user = AuthUser::check();
                     <tbody class="text-gray-600 divide-y divide-gray-50">
                         <?php
                         $pages = [
-                            ['トップページ',       '/',                    'index.php',                 'GET',  'auth_user セッション確認'],
-                            ['About',             'about/',               'about/index.php',           'GET',  ''],
-                            ['会員登録（リセット）', 'regist/',              'regist/index.php',          'GET',  'regist セッション削除 → input にリダイレクト'],
-                            ['会員登録入力',       'regist/input/',        'regist/input/index.php',    'GET',  'フラッシュ入力値・エラー取得'],
-                            ['会員登録処理',       'regist/add/',          'regist/add/index.php',      'POST', '重複チェック・DB 登録・auth_user セッション保存'],
-                            ['登録完了',           'regist/result/',       'regist/result/index.php',   'GET',  'regist セッション削除・完了表示'],
+                            ['トップページ',       '/',                   'index.php',          'GET',  'auth_user セッション確認'],
+                            ['About',             '/about/',             'about/index.php',    'GET',  ''],
+                            ['会員登録（リセット）', '/regist/',            'regist/index.php',   'GET',  'regist セッション削除 → input.php にリダイレクト'],
+                            ['会員登録入力',       '/regist/input.php',   'regist/input.php',   'GET',  'フラッシュ入力値・エラー取得'],
+                            ['会員登録処理',       '/regist/add.php',     'regist/add.php',     'POST', '重複チェック・DB 登録・auth_user セッション保存'],
+                            ['登録完了',           '/regist/result.php',  'regist/result.php',  'GET',  'regist セッション削除・完了表示'],
                         ];
                         foreach ($pages as [$label, $endpoint, $file, $method, $note]):
                             $badge = $method === 'GET'
