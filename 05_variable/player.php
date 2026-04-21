@@ -1,33 +1,23 @@
 <?php
 
 /**
- * データ型の確認デモ
+ * 変数定義
  */
 
-// 1. 文字列型 (string)
-$name = "ユーザーA";
+// TODO: 変数 name : 文字列
 
-// 2. 整数型 (int)
-$level = 5;
+// TODO: 変数 level : 整数
 
-// 3. 浮動小数点型 (float)
-$exp_rate = 1.5;
+// TODO: 変数 exp_rate : 小数点を含む数値
 
-// 4. 論理型 (bool)
-$is_active = true;
+// TODO: 変数 is_active : 真偽値 (true/false)
 
-// 5. NULL型 (null)
-$last_login = null;
+// TODO: 変数 last_login : null (値なし)
 
-// 6. 配列型 (array)
-$items = ["剣", "盾", "回復薬"];
+// TODO: 変数 items : 配列 (複数のアイテムを格納)
 
-// 7. 連想配列 (array)
-$status = [
-    "hp" => 100,
-    "mp" => 50,
-    "job" => "戦士"
-];
+// TODO: 変数 status : 連想配列 (キーと値のペアでステータスを格納)
+// 例: "hp" => 100, "mp" => 50, "job" => "戦士"
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -109,12 +99,14 @@ $status = [
             </h2>
             <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">詳細ステータス</p>
             <dl class="space-y-3">
-                <?php foreach ($status as $key => $value): ?>
-                    <div class="flex justify-between items-center py-3 border-b border-slate-50">
-                        <dt class="text-sm font-mono text-indigo-400">"<?= $key ?>"</dt>
-                        <dd class="text-sm font-mono font-bold"><?= $value ?></dd>
-                    </div>
-                <?php endforeach; ?>
+                <?php if (!empty($status)): ?>
+                    <?php foreach ($status as $key => $value): ?>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-50">
+                            <dt class="text-sm font-mono text-indigo-400">"<?= $key ?>"</dt>
+                            <dd class="text-sm font-mono font-bold"><?= $value ?></dd>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </dl>
         </section>
 
