@@ -7,19 +7,24 @@
  * これらを使うことで、ユーザーからの入力やサーバーの情報、セッション情報などを取得できます。
  */
 
-// 1. $_GET: URLパラメータの取得 (?name=Taro などの値)
-$name = $_GET['name'] ?? 'ゲスト';
+// TODO: $_GET: URLパラメータの取得 (?name=Taro などの値)
+// URLパラメータから 'name' を取得し、なければ 'ゲスト' をデフォルト値
+$name = '';
 
-// 2. $_POST: フォームから送信されたデータの取得
-$postedMessage = $_POST['message'] ?? '';
-$postedName = $_POST['user_name'] ?? '';
+// TODO: $_POST: フォームから送信されたデータの取得
+// フォームから送信された 'user_name' と 'message' を取得し、なければ空文字をデフォルト値
+$postedMessage =  '';
+$postedName = '';
 
-// 3. $_SERVER: サーバーや実行環境の情報
-$serverName = $_SERVER['SERVER_NAME'];
-$userAgent = $_SERVER['HTTP_USER_AGENT'];
-$requestMethod = $_SERVER['REQUEST_METHOD'];
-$remoteAddr = $_SERVER['REMOTE_ADDR'];
-
+// TODO: $_SERVER: サーバーや実行環境の情報
+// サーバー名:$_SERVER['SERVER_NAME']
+$serverName = "";
+// ユーザーエージェント: $_SERVER['HTTP_USER_AGENT']
+$userAgent = "";
+// リクエスト方法: $_SERVER['REQUEST_METHOD']
+$requestMethod = "";
+// クライアントのIPアドレス: $_SERVER['REMOTE_ADDR']
+$remoteAddr = "";
 ?>
 
 <!DOCTYPE html>
