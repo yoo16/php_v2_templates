@@ -21,9 +21,9 @@ class HomeController extends AuthenticatedController
         $tweets = $tweetService->getTimelineTweets((int) $this->authUser['id'], $tab, 50);
 
         // Viewをレンダリング: app/views/home/index.view.php
+        // TODO: $tweetsを渡す
         View::render('home/index', [
             'auth_user' => $this->authUser,
-            'tweets' => $tweets,
             'active_tab' => $tab,
         ]);
     }

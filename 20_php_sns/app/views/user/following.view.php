@@ -11,7 +11,7 @@
         <?php if (empty($users)) : ?>
             <p class="p-8 text-center text-slate-400 text-sm">フォロー中のユーザーはいません</p>
         <?php else : ?>
-            <div class="p-4 text-sm text-slate-400">TODO</div>
+            TODO: フォロー中のユーザー表示: foreach() で $users を繰り返し表示
         <?php endif; ?>
     </main>
 
