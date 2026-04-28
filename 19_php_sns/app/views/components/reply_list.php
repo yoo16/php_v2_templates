@@ -1,1 +1,0 @@
-<div id="reply-list-<?= $value['id'] ?>" class="ml-2"></div>

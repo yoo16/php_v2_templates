@@ -1,0 +1,421 @@
+{
+  "title": "SNSアプリ TODOチェックリスト",
+  "subtitle": "PHP SNS Implementation",
+  "intro": "TODO を埋めて、SNSアプリの主要機能を完成させましょう。API、コントローラ、モデル、ビューの各層にまたがる実装タスクです。",
+  "sections": [
+    {
+      "id": "view-home-index",
+      "title": "app/views/home/index.view.php",
+      "description": "ホーム画面のビュー。検索フォームとツイート投稿フォームをインクルードします。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "コンポーネントのインクルード"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "view-home-1",
+              "text": "TODO のdivタグを削除し、search_form.php がすでにインクルードされていることを確認"
+            },
+            {
+              "id": "view-home-2",
+              "text": "ツイート投稿フォームのdivタグを削除し、tweet_form.php をインクルード"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "<?php include COMPONENT_DIR . 'search_form.php' ?>\n<?php include COMPONENT_DIR . 'tweet_form.php' ?>"
+        },
+        {
+          "type": "note",
+          "text": "search_form.php はすでにインクルード済みのため、TODOのdivタグのみ削除すればOKです。"
+        }
+      ]
+    },
+    {
+      "id": "view-tweet-item",
+      "title": "app/views/components/tweet_item.php",
+      "description": "ツイートカードコンポーネント。ユーザ名、投稿日時、メッセージを表示します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "ユーザ名の表示"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "tweet-item-1",
+              "text": "TODOテキストを h($tweet['display_name']) の出力に置き換え"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "<?= h($tweet['display_name']) ?>"
+        },
+        {
+          "type": "subheading",
+          "text": "投稿日時の表示"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "tweet-item-2",
+              "text": "TODOテキストを h($tweet['created_at']) の出力に置き換え"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "<?= h($tweet['created_at']) ?>"
+        },
+        {
+          "type": "subheading",
+          "text": "メッセージの表示（改行対応）"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "tweet-item-3",
+              "text": "TODOテキストを nl2br(h($tweet['message'])) の出力に置き換え"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "<?= nl2br(h($tweet['message'])) ?>"
+        },
+        {
+          "type": "note",
+          "text": "nl2br() で改行文字を <br> タグに変換します。h() でXSS対策のエスケープを先に行ってから nl2br() に渡してください。"
+        }
+      ]
+    },
+    {
+      "id": "home-controller",
+      "title": "app/controllers/HomeController.php",
+      "description": "ホーム画面のコントローラ。投稿詳細の取得と、投稿の登録処理を担います。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "detail() — 投稿IDの取得"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "home-ctrl-1",
+              "text": "$_GET から投稿ID を取得して $id に代入"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$id = $_GET['id'] ?? 0;"
+        },
+        {
+          "type": "subheading",
+          "text": "add() — 投稿処理"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "home-ctrl-2",
+              "text": "ログインユーザのIDを $posts['user_id'] にセット"
+            },
+            {
+              "id": "home-ctrl-3",
+              "text": "Tweet モデルの insert() にユーザIDと $posts を渡して投稿"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$tweet = new Tweet();\n$tweet->insert((int) $this->authUser['id'], $posts);"
+        }
+      ]
+    },
+    {
+      "id": "model-tweet",
+      "title": "app/models/Tweet.php",
+      "description": "ツイートモデル。検索用のWHERE句、投稿SQL、投稿数カウントSQLを実装します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "search() — キーワード検索のWHERE句"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "tweet-1",
+              "text": "$where に LIKE 検索の WHERE 句を設定（:keyword と :keyword_spaced の両方にマッチ）"
+            },
+            {
+              "id": "tweet-2",
+              "text": "$params に :keyword と :keyword_spaced のバインド値を設定"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$where  = '(tweets.message LIKE :keyword OR tweets.message LIKE :keyword_spaced)';\n$params = [\n    'keyword'        => \"%{$normalized}%\",\n    'keyword_spaced' => \"%{$spaced}%\",\n];"
+        },
+        {
+          "type": "subheading",
+          "text": "insert() — 投稿SQL"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "tweet-3",
+              "text": "tweets テーブルへ user_id, message, image_path を INSERT する SQL を $sql に設定"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$sql = \"INSERT INTO tweets (user_id, message, image_path)\n        VALUES (:user_id, :message, :image_path)\";"
+        },
+        {
+          "type": "subheading",
+          "text": "countByUserID() — 投稿数カウントSQL"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "tweet-4",
+              "text": "user_id を条件に tweets テーブルの件数を取得する SQL を $sql に設定"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$sql = \"SELECT COUNT(*) FROM tweets WHERE user_id = :user_id\";"
+        }
+      ]
+    },
+    {
+      "id": "view-edit",
+      "title": "app/views/user/edit.view.php",
+      "description": "プロフィール編集画面。画像アップロード用のファイル入力フィールドを有効化します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "画像アップロードフィールド"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "edit-1",
+              "text": "コメントアウトされている input[type=file] タグのコメントを外して有効化"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "html",
+          "code": "<input type=\"file\" id=\"image-input\" name=\"file\"\n    class=\"mb-3 block w-full text-sm text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-sky-50 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-sky-600 hover:file:bg-sky-100\"\n    accept=\"image/*\" required>"
+        },
+        {
+          "type": "note",
+          "text": "フォームに enctype=\"multipart/form-data\" が設定済みであることを確認してください。"
+        }
+      ]
+    },
+    {
+      "id": "api-like-update",
+      "title": "api/like/update.php",
+      "description": "いいねのトグル後、結果をJSON形式でレスポンスとして返す処理です。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "JSONレスポンスの生成"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "like-update-1",
+              "text": "json_encode() で $data をJSONエンコードし $json に代入（オプション: JSON_UNESCAPED_UNICODE）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$json = json_encode($data, JSON_UNESCAPED_UNICODE);\necho $json;"
+        },
+        {
+          "type": "note",
+          "text": "JSON_UNESCAPED_UNICODE を付けると、日本語がそのまま出力されます（\\u3042 のようにエスケープされません）。"
+        }
+      ]
+    },
+    {
+      "id": "model-follow",
+      "title": "app/models/Follow.php",
+      "description": "フォローモデル。フォロー追加とフォロー解除のSQLを実装します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "insert() — フォロー追加"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "follow-1",
+              "text": "follows テーブルへ follower_id, followee_id を INSERT する SQL を $sql に設定"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$sql = \"INSERT INTO follows (follower_id, followee_id)\n        VALUES (:follower_id, :followee_id)\";"
+        },
+        {
+          "type": "subheading",
+          "text": "delete() — フォロー解除"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "follow-2",
+              "text": "follows テーブルから follower_id, followee_id が一致する行を DELETE する SQL を $sql に設定"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "$sql = \"DELETE FROM follows\n        WHERE follower_id = :follower_id AND followee_id = :followee_id\";"
+        }
+      ]
+    },
+    {
+      "id": "model-auth-user",
+      "title": "app/models/AuthUser.php",
+      "description": "認証ユーザモデル。ログアウト時にセッションから認証情報を削除します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "logout() — セッション削除"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "auth-1",
+              "text": "$_SESSION[APP_KEY]['auth_user'] を unset() で削除"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "unset($_SESSION[APP_KEY]['auth_user']);"
+        }
+      ]
+    },
+    {
+      "id": "view-gallery",
+      "title": "app/views/home/garally.view.php",
+      "description": "ギャラリー画面。画像付き投稿の画像を表示します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "画像の表示"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "gallery-1",
+              "text": "$tweet['image_path'] を src に使った img タグを追加"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "<img src=\"<?= h($tweet['image_path']) ?>\" class=\"w-full h-32 object-cover\" alt=\"\">"
+        }
+      ]
+    },
+    {
+      "id": "view-following",
+      "title": "app/views/user/following.view.php",
+      "description": "フォロー中ユーザ一覧画面。follow_user_item.php を foreach でループ表示します。",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "ユーザ一覧のループ表示"
+        },
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "following-1",
+              "text": "$users を foreach でループし、各 $user で follow_user_item.php をインクルード"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "language": "php",
+          "code": "<?php foreach ($users as $user) : ?>\n    <?php include COMPONENT_DIR . 'follow_user_item.php' ?>\n<?php endforeach; ?>"
+        }
+      ]
+    },
+    {
+      "id": "app-verification",
+      "title": "全体のアプリ動作確認",
+      "description": "主要フローが一通り正常に動作することを確認する最終チェックです。",
+      "blocks": [
+        {
+          "type": "items",
+          "items": [
+            {
+              "id": "app-check-1",
+              "text": "ホーム画面で検索フォームとツイート投稿フォームが表示されることを確認"
+            },
+            {
+              "id": "app-check-2",
+              "text": "ツイート投稿後に一覧へ反映され、表示名・日時・本文・改行・画像が正しく表示されることを確認"
+            },
+            {
+              "id": "app-check-3",
+              "text": "いいね、フォロー、ログアウト、プロフィール画像アップロードが正常に動作することを確認"
+            },
+            {
+              "id": "app-check-4",
+              "text": "ギャラリー、フォロー中一覧、投稿詳細、検索結果が正常に表示されることを確認"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
