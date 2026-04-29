@@ -2,14 +2,7 @@
 if (!isset($tweet)) return;
 if (!isset($auth_user)) return;
 ?>
-<div class="tweet-card px-4 py-4 border-b border-slate-100 hover:bg-slate-50 transition"
-    data-tweet-id="<?= (int) $tweet['id'] ?>"
-    data-display-name="<?= h($tweet['display_name']) ?>"
-    data-account-name="<?= h($tweet['account_name']) ?>"
-    data-created-at="<?= h($tweet['created_at']) ?>"
-    data-message="<?= h($tweet['message']) ?>"
-    data-profile-image-url="<?= h($tweet['profile_image_url']) ?>"
-    data-image-path="<?= h((string) ($tweet['image_path'] ?? '')) ?>">
+<div class="tweet-card px-4 py-4 border-b border-slate-100 hover:bg-slate-50 transition">
     <div class="flex gap-3">
         <a href="user/?id=<?= (int) $tweet['user_id'] ?>" class="shrink-0">
             <img src="<?= h($tweet['profile_image_url']) ?>" class="rounded-full w-10 h-10 object-cover">
@@ -25,7 +18,8 @@ if (!isset($auth_user)) return;
                     TODO: 投稿日時(created_at)を「YYYY年MM月DD日」形式
                 </span>
             </div>
-            <div class="mt-1 text-slate-800 text-sm leading-relaxed tweet-message cursor-pointer" data-id="<?= (int) $tweet['id'] ?>">
+            <div class="tweet-message mt-1 text-slate-800 text-sm leading-relaxed" data-id="<?= (int) $tweet['id'] ?>">
+                TODO: メッセージリンク: home/detail.php?id= でGETパラメータ
                 TODO: メッセージ(message)を改行つきで表示
             </div>
 
