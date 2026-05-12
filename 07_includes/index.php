@@ -4,13 +4,12 @@
 // ============================================================
 
 // require_once: ファイルが存在しないと Fatal Error → 必須ファイルに使う
-require_once 'includes/config.php';
+// TODO: includes/config.php を読み込む
 
-// require_once は同じファイルを2回読み込まない（定数の再定義エラーを防ぐ）
-require_once 'includes/config.php';  // ← 2回目は無視される
+// ２回目は無視される
 
 // require_once: 商品データも必須
-require_once 'includes/products.php';
+// TODO: includes/products.php を読み込む
 
 // 会員フラグ・数量（メインロジック）
 $isMember  = true;
@@ -18,8 +17,10 @@ $quantities = [2, 1, 3];
 
 // 金額計算（config.php の定数を利用）
 $subtotal = 0;
-foreach ($products as $i => $product) {
-    $subtotal += $product['price'] * $quantities[$i];
+if (!empty($products)) {
+    foreach ($products as $i => $product) {
+        $subtotal += $product['price'] * $quantities[$i];
+    }
 }
 
 $discountRate    = $isMember ? DISCOUNT_RATE : 0;
@@ -59,7 +60,6 @@ $memberLabel     = $isMember ? '会員' : '非会員';
             <p class="text-slate-400 text-xs uppercase tracking-widest font-sans mb-4">このページのファイル構成</p>
             <pre class="leading-loose">
 <span class="text-sky-400">include_demo.php</span>  <span class="text-slate-500">← 今ここ</span>
-│
 ├── <span class="text-fuchsia-400">require_once</span> <span class="text-green-400">'includes/config.php'</span>    <span class="text-slate-500">設定・定数（必須）</span>
 ├── <span class="text-fuchsia-400">require_once</span> <span class="text-green-400">'includes/products.php'</span>  <span class="text-slate-500">商品データ（必須）</span>
 ├── <span class="text-amber-400">include</span>      <span class="text-green-400">'includes/header.php'</span>    <span class="text-slate-500">共通ヘッダー（任意）</span>
@@ -146,25 +146,25 @@ $memberLabel     = $isMember ? '会員' : '非会員';
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <?php foreach ($products as $i => $product): ?>
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                    <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
-                        <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>"
-                            class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-bold text-slate-900 text-lg mb-2"><?= htmlspecialchars($product['name']) ?></h4>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-xs text-slate-400">単価</p>
-                                <p class="text-xl font-semibold"><?= CURRENCY ?><?= number_format($product['price']) ?></p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-xs text-slate-400">数量</p>
-                                <p class="text-xl font-bold text-sky-600">×<?= $quantities[$i] ?></p>
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
+                            <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-bold text-slate-900 text-lg mb-2"><?= htmlspecialchars($product['name']) ?></h4>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-xs text-slate-400">単価</p>
+                                    <p class="text-xl font-semibold"><?= CURRENCY ?><?= number_format($product['price']) ?></p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-slate-400">数量</p>
+                                    <p class="text-xl font-bold text-sky-600">×<?= $quantities[$i] ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <?php endforeach; ?>
             </div>
         </section>

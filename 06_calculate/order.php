@@ -4,10 +4,10 @@ $last_name = "Tokyo";
 $first_name = "Taro";
 
 // 文字列連結
-// ドット演算子
-$full_name = $last_name . " " . $first_name;
-// テンプレートリテラル
-// $full_name = "{$last_name} {$first_name}";
+// TODO: ドット演算子: last_name と first_name の間に半角スペースを入れる
+$full_name = "";
+// TODO: テンプレートリテラル: last_name と first_name の間に半角スペースを入れる
+$full_name = "";
 
 // drink1, drink2, drink3に商品名を代入
 $drink1 = "コーラ";
@@ -40,26 +40,24 @@ const POINT_RATE = 0.01;
 $isMember = true;
 
 // 演算
-// quantity1をインクリメント
-$quantity1++;
+// TODO: quantity1 をインクリメント
 
-// quantity3をデクリメント
-$quantity3--;
+// TODO: quantity3 をデクリメント
 
-// amount1, amount2, amount3に金額を代入
-$amount1 = $price1 * $quantity1;
-$amount2 = $price2 * $quantity2;
-$amount3 = $price3 * $quantity3;
+// TODO: amount1, amount2, amount3に金額を代入
+$amount1 = 0;
+$amount2 = 0;
+$amount3 = 0;
 
 // 通常合計価格
-$total = $amount1 + $amount2 + $amount3;
+$total = 0;
 
 // 三項演算
-// 会員の場合、割引率を0.1に設定
-$discountRate = ($isMember) ? DISCOUNT_RATE : 0;
+// TODO: 会員の場合、割引率を DISCOUNT_RATE に設定、そうでない場合 0
+$discountRate = 0;
 
-// 会員、非会員
-$memberLabel = ($isMember) ? "会員" : "非会員";
+// TODO: isMember の値に応じて 会員 or 非会員
+$memberLabel = "";
 
 // 割引額
 $discount = $total * $discountRate;
@@ -67,8 +65,8 @@ $discount = $total * $discountRate;
 // 合計金額
 $totalWithDiscount = $total - $discount;
 
-// ポイント
-$point = floor($totalWithDiscount * POINT_RATE);
+// TODO: ポイント計算：小数点は floor() で切り捨て
+$point = 0;
 ?>
 
 <!DOCTYPE html>
