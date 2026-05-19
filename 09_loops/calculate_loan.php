@@ -1,5 +1,5 @@
 <?php
-// 初期値の設定
+// 初期値の設定: GETパラメータから受け取り、存在しない場合はデフォルト値を使用
 $start_loan = isset($_GET['loan']) ? (int)$_GET['loan'] : 20000000;
 $pay_by_month = isset($_GET['pay_by_month']) ? (int)$_GET['pay_by_month'] : 80000;
 $interest_rate = isset($_GET['interest_rate']) ? (float)$_GET['interest_rate'] : 1.5;
@@ -17,9 +17,11 @@ if ($pay_by_month <= $first_month_interest) {
     $error_message = "月々の支払額が利息額（&yen;" . number_format(ceil($first_month_interest)) . "）を下回っているため、返済が完了しません。";
 } else {
     // 支払い計算ループ（最大1000ヶ月 = 約83年で制限）
-    while ($loan > 0 && $month_count < 1000) {
+    // TODO: while で繰り返し: 条件式を修正（$loan > 0 && $month_count < 1000）
+    while (false) {
+        // 月数カウンターを1増やす
         $month_count++;
-        // 利息計算
+        // 利息計算: 年利を12で割って月利を計算し、ローン残高に掛ける
         $interest = ($loan * $interest_rate / 100) / 12;
 
         // 最終月の調整
@@ -31,12 +33,12 @@ if ($pay_by_month <= $first_month_interest) {
         } else {
             // 通常月は月々の支払額を支払う
             $payment = $pay_by_month;
-            // ローン残高から支払額を引く
-            $loan -= ($payment - $interest);
+            // TODO: ローン残高から支払額を引く
+            $loan = 0;
         }
 
-        // 利息合計を計算
-        $total_interest += $interest;
+        // TODO: 利息合計を計算
+        $total_interest = 0;
 
         // 12ヶ月ごと、または最終月のみデータを保存（全データだと重くなるため）
         if ($month_count % 12 == 0 || $loan <= 0) {
@@ -189,12 +191,17 @@ $remaining_months = $month_count % 12;
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-50">
+                                    <!-- 明細を繰り返し表示: $values -->
                                     <?php foreach ($values as $value) : ?>
                                         <tr class="hover:bg-slate-50/50 transition-colors">
-                                            <td class="px-8 py-4 font-bold text-slate-400 italic"><?= $value['year'] ?> 年目</td>
-                                            <td class="px-8 py-4 font-medium"><?= $value['month'] ?> 回目</td>
-                                            <td class="px-8 py-4 text-right text-rose-400">&yen;<?= number_format($value['interest']) ?></td>
-                                            <td class="px-8 py-4 text-right font-bold text-slate-900">&yen;<?= number_format($value['loan']) ?></td>
+                                            <!-- TODO: 経過年数を表示 -->
+                                            <td class="px-8 py-4 font-bold text-slate-400 italic"> 年目</td>
+                                            <!-- TODO: 支払い回数を表示 -->
+                                            <td class="px-8 py-4 font-medium"> 回目</td>
+                                            <!-- TODO: 利息額を表示 -->
+                                            <td class="px-8 py-4 text-right text-rose-400">&yen;</td>
+                                            <!-- TODO: ローン残高を表示 -->
+                                            <td class="px-8 py-4 text-right font-bold text-slate-900">&yen;</td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

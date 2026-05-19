@@ -6,23 +6,23 @@
 // BINGOの各列のラベル
 $labels = ['B', 'I', 'N', 'G', 'O'];
 // 各列の番号の範囲
+// TODO: 各列の番号の範囲を定義:  range()
+// 1 - 15, 16 - 30, 31 - 45, 46 - 60, 61 - 75
 $ranges = [
-    'B' => range(1, 15),
-    'I' => range(16, 30),
-    'N' => range(31, 45),
-    'G' => range(46, 60),
-    'O' => range(61, 75),
+    'B' => [],
+    'I' => [],
+    'N' => [],
+    'G' => [],
+    'O' => [],
 ];
 
 // 各列の番号を格納する配列
 $columns = [];
-// 各列の番号の範囲をループ
-foreach ($ranges as $label => $range) {
-    // 各列の番号をシャッフル
-    shuffle($range);
-    // 5つ選ぶ
-    $columns[$label] = array_slice($range, 0, 5);
-}
+// TODO: 各列の番号の範囲をループ: foreach($ranges as $label => $range)
+// 各列の番号をシャッフル
+// shuffle($range);
+// 5つ選ぶ
+// $columns[$label] = array_slice($range, 0, 5);
 
 // 中央（N列の3番目）を FREE に
 $columns['N'][2] = 'FREE';
@@ -34,8 +34,11 @@ $columns['N'][2] = 'FREE';
 $rows = [];
 // 5x5のビンゴカードを作成
 for ($i = 0; $i < 5; $i++) {
+    // $labels をループ
     foreach ($labels as $label) {
-        $rows[$i][] = $columns[$label][$i];
+        if (isset($columns[$label][$i])) {
+            $rows[$i][] = $columns[$label][$i];
+        }
     }
 }
 
@@ -108,22 +111,24 @@ $colors = [
 
             <!-- Numbers Grid -->
             <div class="grid grid-cols-5 gap-2">
-                <?php foreach ($rows as $rowIndex => $row): ?>
-                    <?php foreach ($row as $colIndex => $value): ?>
+                <!-- TODO: $rows で繰り返し -->
+                <?php foreach ([] as $row): ?>
+                    <!-- TODO: $row で繰り返し -->
+                    <?php foreach ([] as $value): ?>
                         <?php
-                        $currentLabel = $labels[$colIndex];
                         $isFree = ($value === 'FREE');
                         ?>
                         <div class="bingo-cell relative group">
                             <div class="absolute inset-0 bg-slate-100 rounded-2xl transform transition-transform group-hover:scale-95"></div>
                             <div class="relative h-full flex items-center justify-center text-xl font-black <?= $isFree ? 'text-amber-500' : 'text-slate-800' ?>">
                                 <?php if ($isFree): ?>
+                                    <!-- isFree の場合 -->
                                     <svg class="w-10 h-10 free-star animate-pulse" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                     </svg>
                                     <span class="absolute bottom-1 text-[8px] font-black uppercase tracking-widest opacity-50">Free</span>
                                 <?php else: ?>
-                                    <?= $value ?>
+                                    <!-- TODO: $value を表示 -->
                                 <?php endif; ?>
                             </div>
                         </div>
