@@ -8,26 +8,26 @@ $isMaintenance = isset($_GET['maintenance']) && $_GET['maintenance'] === '1';
 $canPay = $charge >= $payment;
 $status = "success";
 
-if ($isMaintenance) {
+// TODO: if 文
+// 1. isMaintenance の場合
     $status = "maintenance";
     $message = "システムメンテナンス中";
     $subMessage = "ただいま決済機能をご利用いただけません。";
-} elseif (!$canPay) {
+
+// 2. 決済できない場合
     $status = "error";
     $message = "残高が不足しています";
     $subMessage = "チャージしてから再度お試しください。";
-} else {
+
+// 3. それ以外の場合
     $status = "success";
     $message = "決済可能です";
     $subMessage = "「支払う」ボタンを押して完了してください。";
-}
 
-// レイアウト設定
-$config = match ($status) {
-    'success' => ['color' => 'indigo', 'icon' => 'M5 13l4 4L19 7'],
-    'error'   => ['color' => 'rose', 'icon' => 'M6 18L18 6M6 6l12 12'],
-    'maintenance' => ['color' => 'amber', 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-};
+// TODO: match() で status によってレイアウト設定
+    // 'success' => ['color' => 'indigo', 'icon' => 'M5 13l4 4L19 7'],
+    // 'error'   => ['color' => 'rose', 'icon' => 'M6 18L18 6M6 6l12 12'],
+    // 'maintenance' => ['color' => 'amber', 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
 
 // 残高の割合（ゲージ用）
 $balancePercent = min(100, max(0, ($charge / ($payment ?: 1)) * 50)); // 簡易的な計算
