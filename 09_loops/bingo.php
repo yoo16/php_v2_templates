@@ -102,11 +102,10 @@ $colors = [
         <div class="bg-white rounded-[2rem] p-4 shadow-lg border-slate-300">
             <!-- Header Labels -->
             <div class="grid grid-cols-5 gap-2 mb-2">
-                <?php foreach ($labels as $label): ?>
+                <!-- TODO: コロン構文 foreach でラベルを繰り返し -->
                     <div class="<?= $colors[$label]['bg'] ?> rounded-2xl bingo-cell flex items-center justify-center text-2xl text-white font-black shadow-inner">
                         <?= $label ?>
                     </div>
-                <?php endforeach; ?>
             </div>
 
             <!-- Numbers Grid -->

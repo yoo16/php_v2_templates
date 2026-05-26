@@ -1,24 +1,25 @@
 <?php
-// 日付オブジェクトの生成（パラメータがあればその日、なければ今日）
-$targetDate = isset($_GET['date']) ? new DateTime($_GET['date']) : new DateTime();
+// TODO: 日付オブジェクトの生成（パラメータがあればその日、なければ今日）
+// $targetDate = isset($_GET['date']) ? new DateTime($_GET['date']) : new DateTime();
 
-// 曜日インデックス（0:日 〜 6:土）
-$weekIndex = (int)$targetDate->format('w');
+// TODO: 曜日インデックス（0:日 〜 6:土）
+$weekIndex = 0;
 
 // 日本語の曜日名を取得 (IntlDateFormatterを使用)
 $formatter = new IntlDateFormatter('ja_JP', IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'E');
-$weekDay = $formatter->format($targetDate);
+// TODO: 曜日フォーマット
+$weekDay = "";
 
 // ゴミ出しのルールを定義
-// 1, 3 → 月、水 → 燃えるゴミ
-// 5 → 金 → 燃えないゴミ
-// 2, 4, 6, 0 → 火、木、土、日 → 回収なし
 $burnable = ["is_garbage" => true, "label" => "燃えるゴミ", "color" => "bg-rose-500"];
 $unburnable = ["is_garbage" => true, "label" => "燃えないゴミ", "color" => "bg-amber-500"];
 $none = ["is_garbage" => false, "label" => "回収なし", "color" => "bg-slate-400"];
 
 // TODO: ゴミ出しの判定 (PHP 8.0+ match式)
-$garbage = ['color' => '', 'label' => '', 'is_garbage' => false];
+// 1, 3 → 月、水 → 燃えるゴミ
+// 5 → 金 → 燃えないゴミ
+// 2, 4, 6, 0 → 火、木、土、日 → 回収なし
+$garbage = $none; 
 
 // レイアウト用の色設定
 $statusColor = $garbage['color'];
