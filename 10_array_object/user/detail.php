@@ -9,10 +9,12 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $user = null;
 
 // 1. foreach の場合
-// foreach ($users as $user) {
-//     if ($user['id'] === $id) {
-//         $user = $user;
-//         break;
+// if (isset($users) && is_array($users)) {
+//     foreach ($users as $user) {
+//         if ($user['id'] === $id) {
+//             $user = $user;
+//             break;
+//         }
 //     }
 // }
 
