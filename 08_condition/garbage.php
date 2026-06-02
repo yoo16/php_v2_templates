@@ -6,7 +6,10 @@
 $weekIndex = 0;
 
 // 日本語の曜日名を取得 (IntlDateFormatterを使用)
-$formatter = new IntlDateFormatter('ja_JP', IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'E');
+// $formatter = new IntlDateFormatter('ja_JP', IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'E');
+// $weekDay = "";
+
+$weekDays = ['日', '月', '火', '水', '木', '金', '土'];
 // TODO: 曜日フォーマット
 $weekDay = "";
 
