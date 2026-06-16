@@ -3,7 +3,6 @@
 require_once 'app.php';
 
 use App\Models\AuthUser;
-
 $auth_user = AuthUser::check();
 ?>
 
