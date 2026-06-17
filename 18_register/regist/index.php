@@ -4,6 +4,6 @@ require_once "../app.php";
 
 if (isset($_SESSION[APP_KEY]['regist'])) {
     // TODO: セッション削除
-    unset($_SESSION[APP_KEY]['regist']);
+    // unset($_SESSION[APP_KEY]['regist']);
 }
 header('Location: ./input.php');

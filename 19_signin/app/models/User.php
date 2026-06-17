@@ -44,7 +44,7 @@ class User extends Model
     /**
      * ユーザデータを取得
      *
-     * @param string $account_name ユーザのアカウント名
+     * @param array $posts ユーザのアカウント名とメールアドレス
      * @return array|null ユーザデータの連想配列、もしくは該当するユーザがなければ null
      */
     public function findForExists($posts)

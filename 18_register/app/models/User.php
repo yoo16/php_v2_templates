@@ -80,8 +80,8 @@ class User extends Model
         // データがなければ終了
         if (empty($data)) return;
         try {
-            // パスワードのハッシュ化
-            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            // TODO: パスワードのハッシュ化
+            $data['password'] = null;
             // DB接続
             $pdo = Database::getInstance();
             // SQL作成

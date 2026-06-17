@@ -4,7 +4,7 @@ namespace App\Models;
 
 class AuthUser extends User
 {
-    private static $key = APP_KEY;
+    private static string $key = APP_KEY;
 
     public static function check()
     {
@@ -14,7 +14,7 @@ class AuthUser extends User
         }
     }
 
-    public static function set($user)
+    public static function set(array $user)
     {
         // セッションにユーザ情報を保存
         $_SESSION[self::$key] = $user;
